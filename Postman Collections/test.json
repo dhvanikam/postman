@@ -82,31 +82,7 @@
 				"url": "{{baseurl}}/saveprogram",
 				"description": "The user (Admin) can create different programs. The details are inserted in LMS DB (tbl_lms_program).\n\n| HTTP  <br>VERB | Route | PURPOSE |\n| --- | --- | --- |\n| POST | {{baseurl}}/saveprogram | To Create Program |"
 			},
-			"response": [
-				{
-					"id": "fb23739a-e45a-4e1e-816d-51563bb6639d",
-					"name": "Save Program",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\"programName\": \"{{program_name}}-{{$randomInt}}\",\n\"programDescription\": \"{{program_desc}}\",\n\"programStatus\": \"{{program_status}}\",\n\"creationTime\": \"{{$isoTimestamp}}\",\n\"lastModTime\": \"{{$isoTimestamp}}\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{baseurl}}/saveprogram"
-					},
-					"_postman_previewlanguage": null,
-					"header": null,
-					"cookie": [],
-					"responseTime": null,
-					"body": null
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Get Program By ID",
@@ -765,7 +741,7 @@
 	],
 	"variable": [
 		{
-			"id": "bad98f10-9ba8-4a7c-999a-bae585c534ef",
+			"id": "71fd7515-4920-42ed-b248-115abba53607",
 			"key": "baseurl",
 			"value": "https://lms-backend-service.herokuapp.com/lms"
 		}
