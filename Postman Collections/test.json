@@ -7,7 +7,7 @@
 	"item": [
 		{
 			"name": "API status",
-			"_postman_id": "ac66ef96-5972-49d7-b78a-8f4f520779df",
+			"id": "ac66ef96-5972-49d7-b78a-8f4f520779df",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -33,7 +33,7 @@
 					}
 				}
 			],
-			"_postman_id": "028a11de-d641-40e7-a5fc-dafdf01eea53",
+			"id": "028a11de-d641-40e7-a5fc-dafdf01eea53",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -51,31 +51,23 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "20444fc0-7e4d-49f0-b687-cc3ca2ee0a9d",
+						"id": "b469ce19-de05-4af9-ab27-474e6ca6c267",
 						"exec": [
 							"tests[\"Validate Status Code\"]",
 							"=responseCode.code==201;",
 							"var jsonData = pm.response.json();",
 							"pm.globals.set(\"programId\", jsonData.programId);",
-							"pm.globals.set(\"programName\", jsonData.programName);",
-							"postman.setNextRequest(\"Delete\")"
+							"pm.globals.set(\"programName\", jsonData.programName);"
 						],
 						"type": "text/javascript"
 					}
 				}
 			],
-			"_postman_id": "c64b3059-baae-4eaa-82a9-3f87ef709a44",
+			"id": "c64b3059-baae-4eaa-82a9-3f87ef709a44",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
 			"request": {
-				"auth": {
-					"type": "digest",
-					"digest": {
-						"disableRetryRequest": false,
-						"algorithm": "MD5"
-					}
-				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -131,7 +123,7 @@
 					}
 				}
 			],
-			"_postman_id": "43ad0f20-5cf7-4126-bbe1-a96d8a652505",
+			"id": "43ad0f20-5cf7-4126-bbe1-a96d8a652505",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -160,8 +152,7 @@
 						{
 							"id": "803562ef-e663-4cdb-af37-f84e06a5509e",
 							"key": "ProgramID",
-							"value": "{{programId}}",
-							"type": "string"
+							"value": "{{programId}}"
 						}
 					]
 				},
@@ -186,7 +177,7 @@
 					}
 				}
 			],
-			"_postman_id": "e5dd1880-a771-411d-9839-8a8a79fb6164",
+			"id": "e5dd1880-a771-411d-9839-8a8a79fb6164",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -215,8 +206,7 @@
 						{
 							"id": "9ff35048-156a-41c6-8d55-01920da4bb7c",
 							"key": "ProgramID",
-							"value": "{{programId}}",
-							"type": "string"
+							"value": "{{programId}}"
 						}
 					]
 				},
@@ -241,7 +231,7 @@
 					}
 				}
 			],
-			"_postman_id": "1740f841-f352-47ff-8278-7cf41e3b9894",
+			"id": "1740f841-f352-47ff-8278-7cf41e3b9894",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -270,8 +260,7 @@
 						{
 							"id": "ff3c67bd-a315-450c-b9d5-3762773ea077",
 							"key": "(ProgramName)",
-							"value": "{{programName}}",
-							"type": "string"
+							"value": "{{programName}}"
 						}
 					]
 				},
@@ -294,7 +283,7 @@
 					}
 				}
 			],
-			"_postman_id": "6577a188-ccab-46cf-a506-589f62aca8b5",
+			"id": "6577a188-ccab-46cf-a506-589f62aca8b5",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -325,7 +314,7 @@
 					}
 				}
 			],
-			"_postman_id": "a399627d-a16d-4d79-b8eb-0a50c0702952",
+			"id": "a399627d-a16d-4d79-b8eb-0a50c0702952",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -373,7 +362,7 @@
 					}
 				}
 			],
-			"_postman_id": "d97ddacc-e570-44d2-b73e-24ff9776516f",
+			"id": "d97ddacc-e570-44d2-b73e-24ff9776516f",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -394,8 +383,7 @@
 						{
 							"id": "642e42db-7a12-4175-8135-f732f5097077",
 							"key": "BatchId",
-							"value": "{{batchId}}",
-							"type": "string"
+							"value": "{{batchId}}"
 						}
 					]
 				},
@@ -420,7 +408,7 @@
 					}
 				}
 			],
-			"_postman_id": "19b91e49-8fb0-4f55-8c8c-79b0cdf29c7f",
+			"id": "19b91e49-8fb0-4f55-8c8c-79b0cdf29c7f",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -441,8 +429,7 @@
 						{
 							"id": "d79b1c8e-9ea8-4354-87ac-4d7f7d64137d",
 							"key": "(BatchName)",
-							"value": "{{batchName}}",
-							"type": "string"
+							"value": "{{batchName}}"
 						}
 					]
 				},
@@ -467,7 +454,7 @@
 					}
 				}
 			],
-			"_postman_id": "626a86b8-132b-4437-913e-948d52201d78",
+			"id": "626a86b8-132b-4437-913e-948d52201d78",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -488,8 +475,7 @@
 						{
 							"id": "098c585c-88bd-4d09-a716-3310603d405d",
 							"key": "(ProgramId)",
-							"value": "{{programId}}",
-							"type": "string"
+							"value": "{{programId}}"
 						}
 					]
 				},
@@ -514,7 +500,7 @@
 					}
 				}
 			],
-			"_postman_id": "6ea8bc53-3874-4b0b-b4da-c3a8dc569c6f",
+			"id": "6ea8bc53-3874-4b0b-b4da-c3a8dc569c6f",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -543,8 +529,7 @@
 						{
 							"id": "44f7e0b7-f3eb-4c29-9f59-971bb0864011",
 							"key": "(BatchId)",
-							"value": "{{batchId}}",
-							"type": "string"
+							"value": "{{batchId}}"
 						}
 					]
 				},
@@ -569,7 +554,7 @@
 					}
 				}
 			],
-			"_postman_id": "124177d6-04fb-4549-a59d-4cb68f427c89",
+			"id": "124177d6-04fb-4549-a59d-4cb68f427c89",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -599,8 +584,7 @@
 						{
 							"id": "595898b6-e22f-4b86-9f0e-4b2cc9f23ac7",
 							"key": "(BatchName)",
-							"value": "{{batchName}}",
-							"type": "string"
+							"value": "{{batchName}}"
 						}
 					]
 				},
@@ -623,7 +607,7 @@
 					}
 				}
 			],
-			"_postman_id": "c37be8d4-b955-4a33-8c9c-98edb7a98462",
+			"id": "c37be8d4-b955-4a33-8c9c-98edb7a98462",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -643,8 +627,7 @@
 						{
 							"id": "a0f744d2-8d70-4a0e-b250-8ab88c5fb518",
 							"key": "(BatchId)",
-							"value": "{{batchId}}",
-							"type": "string"
+							"value": "{{batchId}}"
 						}
 					]
 				}
@@ -666,7 +649,7 @@
 					}
 				}
 			],
-			"_postman_id": "75845456-ccf9-4603-9e3f-3b3b14831d12",
+			"id": "75845456-ccf9-4603-9e3f-3b3b14831d12",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -686,8 +669,7 @@
 						{
 							"id": "9b53befd-5c55-4c55-8846-a216ced4fa87",
 							"key": "(BatchName)",
-							"value": "{{batchName}}",
-							"type": "string"
+							"value": "{{batchName}}"
 						}
 					]
 				}
@@ -709,7 +691,7 @@
 					}
 				}
 			],
-			"_postman_id": "35587fd1-4e6c-4789-b9bc-508e5e8e4e50",
+			"id": "35587fd1-4e6c-4789-b9bc-508e5e8e4e50",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -729,8 +711,7 @@
 						{
 							"id": "ab130cee-a140-4601-9167-2ba80b66e5e9",
 							"key": "(ProgramID)",
-							"value": "{{programId}}",
-							"type": "string"
+							"value": "{{programId}}"
 						}
 					]
 				},
@@ -753,7 +734,7 @@
 					}
 				}
 			],
-			"_postman_id": "9254f92e-d7c3-4e21-9c62-24a22adddc35",
+			"id": "9254f92e-d7c3-4e21-9c62-24a22adddc35",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -773,8 +754,7 @@
 						{
 							"id": "8cf2d0db-881c-470a-9fc2-ee92dc022052",
 							"key": "(ProgramName)",
-							"value": "{{programName}}",
-							"type": "string"
+							"value": "{{programName}}"
 						}
 					]
 				},
@@ -785,10 +765,9 @@
 	],
 	"variable": [
 		{
-			"id": "bec8b944-eb67-409a-aaa2-22ad584fe4f4",
+			"id": "bad98f10-9ba8-4a7c-999a-bae585c534ef",
 			"key": "baseurl",
-			"value": "https://lms-backend-service.herokuapp.com/lms",
-			"type": "string"
+			"value": "https://lms-backend-service.herokuapp.com/lms"
 		}
 	]
 }
