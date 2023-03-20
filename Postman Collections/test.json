@@ -1,0 +1,794 @@
+{
+	"info": {
+		"_postman_id": "02b846de-d374-4c42-8728-1704ee3975c9",
+		"name": "Group18_Ninja_Trainees_LMS_API Final",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API status",
+			"_postman_id": "ac66ef96-5972-49d7-b78a-8f4f520779df",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseurl}}/status"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Programs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Validate Status Code\"]",
+							"=responseCode.code==200;"
+						],
+						"type": "text/javascript",
+						"id": "1240bc2a-8a49-4144-aa4b-6a0e4ae891f5"
+					}
+				}
+			],
+			"_postman_id": "028a11de-d641-40e7-a5fc-dafdf01eea53",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseurl}}/allPrograms",
+				"description": "The user can retrieve all programs\n\n| HTTP  <br>VERB | Route | PURPOSE |\n| --- | --- | --- |\n| GET | {{baseurl}}/allPrograms | To Get All Programs |"
+			},
+			"response": []
+		},
+		{
+			"name": "Save Program",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "20444fc0-7e4d-49f0-b687-cc3ca2ee0a9d",
+						"exec": [
+							"tests[\"Validate Status Code\"]",
+							"=responseCode.code==201;",
+							"var jsonData = pm.response.json();",
+							"pm.globals.set(\"programId\", jsonData.programId);",
+							"pm.globals.set(\"programName\", jsonData.programName);",
+							"postman.setNextRequest(\"Delete\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "c64b3059-baae-4eaa-82a9-3f87ef709a44",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "digest",
+					"digest": {
+						"disableRetryRequest": false,
+						"algorithm": "MD5"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"programName\": \"{{program_name}}-{{$randomInt}}\",\n\"programDescription\": \"{{program_desc}}\",\n\"programStatus\": \"{{program_status}}\",\n\"creationTime\": \"{{$isoTimestamp}}\",\n\"lastModTime\": \"{{$isoTimestamp}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseurl}}/saveprogram",
+				"description": "The user (Admin) can create different programs. The details are inserted in LMS DB (tbl_lms_program).\n\n| HTTP  <br>VERB | Route | PURPOSE |\n| --- | --- | --- |\n| POST | {{baseurl}}/saveprogram | To Create Program |"
+			},
+			"response": [
+				{
+					"id": "fb23739a-e45a-4e1e-816d-51563bb6639d",
+					"name": "Save Program",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"programName\": \"{{program_name}}-{{$randomInt}}\",\n\"programDescription\": \"{{program_desc}}\",\n\"programStatus\": \"{{program_status}}\",\n\"creationTime\": \"{{$isoTimestamp}}\",\n\"lastModTime\": \"{{$isoTimestamp}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseurl}}/saveprogram"
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"responseTime": null,
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Get Program By ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Validate Status Code\"]",
+							"=responseCode.code==200;"
+						],
+						"type": "text/javascript",
+						"id": "088896dd-bd23-4fa9-bf11-148d30c14f9d"
+					}
+				}
+			],
+			"_postman_id": "43ad0f20-5cf7-4126-bbe1-a96d8a652505",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/programs/:ProgramID",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"programs",
+						":ProgramID"
+					],
+					"variable": [
+						{
+							"id": "803562ef-e663-4cdb-af37-f84e06a5509e",
+							"key": "ProgramID",
+							"value": "{{programId}}",
+							"type": "string"
+						}
+					]
+				},
+				"description": "The user can retrieve all programs and specific program based on Program ID.\n\n| HTTP  <br>VERB | Route | PURPOSE |\n| --- | --- | --- |\n| GET | {{baseurl}}/programs/{programId} | To Get Program by ID |"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Program by Program ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Validate Status Code\"]",
+							"=responseCode.code==200;",
+							"var jsonData = pm.response.json();",
+							"pm.globals.set(\"programName\", jsonData.programName);"
+						],
+						"type": "text/javascript",
+						"id": "65fe29bf-7240-4826-beeb-ddc20cc342a5"
+					}
+				}
+			],
+			"_postman_id": "e5dd1880-a771-411d-9839-8a8a79fb6164",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"programName\": \"Jan23-NinjaTrainees-Selenium-{{$randomInt}}\",\r\n \"programDescription\": \"Learn Selenium\",\r\n \"programStatus\": \"Active\",\r\n \"creationTime\": \"2023-01-07T04:13:00.000+00:00\",\r\n \"lastModTime\": \"2023-01-07T04:13:00.000+00:00\"\r\n\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/putprogram/:ProgramID",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"putprogram",
+						":ProgramID"
+					],
+					"variable": [
+						{
+							"id": "9ff35048-156a-41c6-8d55-01920da4bb7c",
+							"key": "ProgramID",
+							"value": "{{programId}}",
+							"type": "string"
+						}
+					]
+				},
+				"description": "The user can update a program Details based on program ID and Program Name.\n\n| HTTP  <br>VERB | Route | PURPOSE |\n| --- | --- | --- |\n| PUT | {{baseurl}}/putprogram/{programId} | To Update Program by Id |"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Program by Program Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Validate Status Code\"]",
+							"=responseCode.code==200;",
+							"var jsonData = pm.response.json();",
+							"pm.globals.set(\"programName\", jsonData.programName);"
+						],
+						"type": "text/javascript",
+						"id": "e0c948c2-c50f-446d-a766-bd06cfdd0701"
+					}
+				}
+			],
+			"_postman_id": "1740f841-f352-47ff-8278-7cf41e3b9894",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"programName\": \"  Jan23-NinjaTrainees-Selenium-{{$randomInt}}\",\r\n    \"programDescription\": \"Learn Postman\",\r\n    \"programStatus\": \"Active\",\r\n    \"creationTime\": \"2023-01-12T01:55:19.007+00:00\",\r\n    \"lastModTime\": \"2023-01-12T01:55:19.007+00:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/program/:(ProgramName)",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"program",
+						":(ProgramName)"
+					],
+					"variable": [
+						{
+							"id": "ff3c67bd-a315-450c-b9d5-3762773ea077",
+							"key": "(ProgramName)",
+							"value": "{{programName}}",
+							"type": "string"
+						}
+					]
+				},
+				"description": "The user can update a program Details based on program ID and Program Name.\n\n| HTTP  <br>VERB | Route | PURPOSE |\n| --- | --- | --- |\n| PUT | {{baseurl}}/program/{programName} | To Update Program by Name |"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Batches",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Validate Status Code\"]\r",
+							"=responseCode.code==200;"
+						],
+						"type": "text/javascript",
+						"id": "6221b440-a222-4a1b-be34-d5b0a8154e93"
+					}
+				}
+			],
+			"_postman_id": "6577a188-ccab-46cf-a506-589f62aca8b5",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseurl}}/batches",
+				"description": "The user can retrieve all batches and specific Batch based on Batch Id, Batch Name, and Program ID  \n(tbl_lms_program).\n\n| HTTP VERB | Route | PURPOSE |\n| --- | --- | --- |\n| GET | {{baseurl}}/batches | To Get All Batches |"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Batch",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Validate Status Code\"]\r",
+							"=responseCode.code==201;\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.globals.set(\"batchId\", jsonData.batchId);\r",
+							"pm.globals.set(\"batchName\", jsonData.batchName);\r",
+							""
+						],
+						"type": "text/javascript",
+						"id": "8fa7f926-8099-4942-ae1f-e2a6cd720727"
+					}
+				}
+			],
+			"_postman_id": "a399627d-a16d-4d79-b8eb-0a50c0702952",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"batchName\": \"Jan23-NinjaTrainees-SDET-SDET84-{{$randomInt}}\",\r\n\"batchDescription\": \"learn Selenium\",\r\n\"batchStatus\": \"Active\",\r\n\"batchNoOfClasses\": 12,\r\n\"programId\": {{programId}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseurl}}/batches",
+				"description": "The user can create a batch only if the program is present. As the batch is associated with program Id.\n\n| HTTP VERB | Route | PURPOSE |\n| --- | --- | --- |\n| POST | {{baseurl}}/batches | To Create Batch |"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Batch by Batch ID",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"BatchId = pm.globals.get(\"batchId\");\r",
+							""
+						],
+						"type": "text/javascript",
+						"id": "a0b1becc-a2aa-4ea1-8020-d1f8afccee16"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Validate Status Code\"]\r",
+							"=responseCode.code==200;\r",
+							""
+						],
+						"type": "text/javascript",
+						"id": "e813c5a0-7f46-4fc9-a265-2869e4e9c1bd"
+					}
+				}
+			],
+			"_postman_id": "d97ddacc-e570-44d2-b73e-24ff9776516f",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/batches/batchId/:BatchId",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"batches",
+						"batchId",
+						":BatchId"
+					],
+					"variable": [
+						{
+							"id": "642e42db-7a12-4175-8135-f732f5097077",
+							"key": "BatchId",
+							"value": "{{batchId}}",
+							"type": "string"
+						}
+					]
+				},
+				"description": "The user can retrieve all batches and specific Batch based on Batch Id,\n\n| HTTP  <br>VERB | Route | PURPOSE |\n| --- | --- | --- |\n| GET | {{baseurl}}/batches/batchId/{batchId} | To Get Batches by Id |"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Batch by Batch Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Validate Status Code\"]\r",
+							"=responseCode.code==200;\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"id": "b0ccb274-b490-4be2-8460-3c62ec94fa38"
+					}
+				}
+			],
+			"_postman_id": "19b91e49-8fb0-4f55-8c8c-79b0cdf29c7f",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/batches/batchName/:(BatchName)",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"batches",
+						"batchName",
+						":(BatchName)"
+					],
+					"variable": [
+						{
+							"id": "d79b1c8e-9ea8-4354-87ac-4d7f7d64137d",
+							"key": "(BatchName)",
+							"value": "{{batchName}}",
+							"type": "string"
+						}
+					]
+				},
+				"description": "The user can retrieve all batches and specific Batch based on Batch Name,\n\n| HTTP  <br>VERB | Route | PURPOSE |\n| --- | --- | --- |\n| GET | {{baseurl}}/batches/batchName/{batchName} | To Get Batches by Batch Name |"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Batch by Program ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Validate Status Code\"]\r",
+							"=responseCode.code==200;\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"id": "ccb5ba42-4ba1-4bc7-8e4b-4a523ea5a358"
+					}
+				}
+			],
+			"_postman_id": "626a86b8-132b-4437-913e-948d52201d78",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/batches/program/:(ProgramId)",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"batches",
+						"program",
+						":(ProgramId)"
+					],
+					"variable": [
+						{
+							"id": "098c585c-88bd-4d09-a716-3310603d405d",
+							"key": "(ProgramId)",
+							"value": "{{programId}}",
+							"type": "string"
+						}
+					]
+				},
+				"description": "The user can retrieve all batches and specific Batch based on Batch Id, Batch Name, and Program ID  \n(tbl_lms_program).\n\n| HTTP VERB | Route | PURPOSE |\n| --- | --- | --- |\n| GET | {{baseurl}}/batches/program/{programId} | To Get Batches by Program Id |"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Batch by Batch ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Validate Status Code\"]",
+							"=responseCode.code==200;",
+							"var jsonData = pm.response.json();",
+							"pm.globals.set(\"batchName\", jsonData.batchName);"
+						],
+						"type": "text/javascript",
+						"id": "1f4ac21c-a708-4f21-8777-da0c7f4a6236"
+					}
+				}
+			],
+			"_postman_id": "6ea8bc53-3874-4b0b-b4da-c3a8dc569c6f",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"batchName\": \"Jan23-NinjaTrainees-SDET-SDET84-{{$randomInt}}\",\r\n \"batchDescription\": \"Java Program Batch 03\",\r\n \"batchStatus\": \"Active\",\r\n \"batchNoOfClasses\": 4,\r\n \"programId\": {{programId}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/batches/:(BatchId)",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"batches",
+						":(BatchId)"
+					],
+					"variable": [
+						{
+							"id": "44f7e0b7-f3eb-4c29-9f59-971bb0864011",
+							"key": "(BatchId)",
+							"value": "{{batchId}}",
+							"type": "string"
+						}
+					]
+				},
+				"description": "The user can update a Batch based on Batch ID.\n\n| HTTP VERB | Route | PURPOSE |\n| --- | --- | --- |\n| PUT | {{baseurl}}/batches/{batchId} | To Update Batch by Id |"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Batch by Batch Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Validate Status Code\"]",
+							"=responseCode.code==200;",
+							"var jsonData = pm.response.json();",
+							"pm.globals.set(\"batchName\", jsonData.batchName);"
+						],
+						"type": "text/javascript",
+						"id": "caaee3bb-135a-4434-9483-f690d6678a67"
+					}
+				}
+			],
+			"_postman_id": "124177d6-04fb-4549-a59d-4cb68f427c89",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"batchName\": \"Jan23-NinjaTrainees-SDET-SDET84-{{$randomInt}}\",\r\n \"batchDescription\": \"Java Program Batch 03\",\r\n \"batchStatus\": \"Active\",\r\n \"batchNoOfClasses\": 4,\r\n \"programId\": {{programId}}\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/batches/batchName/:(BatchName)",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"batches",
+						"batchName",
+						":(BatchName)"
+					],
+					"variable": [
+						{
+							"id": "595898b6-e22f-4b86-9f0e-4b2cc9f23ac7",
+							"key": "(BatchName)",
+							"value": "{{batchName}}",
+							"type": "string"
+						}
+					]
+				},
+				"description": "The user can update a Batch based on Batch ID.\n\n| HTTP VERB | Route | PURPOSE |\n| --- | --- | --- |\n| PUT | {{baseurl}}/batches/{batchId} | To Update Batch by Id |"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Batch By Batch ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Validate Status Code\"]\r",
+							"=responseCode.code==200;"
+						],
+						"type": "text/javascript",
+						"id": "1230bb66-e419-46d9-9446-15bb11ab1cf6"
+					}
+				}
+			],
+			"_postman_id": "c37be8d4-b955-4a33-8c9c-98edb7a98462",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/batches/:(BatchId)",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"batches",
+						":(BatchId)"
+					],
+					"variable": [
+						{
+							"id": "a0f744d2-8d70-4a0e-b250-8ab88c5fb518",
+							"key": "(BatchId)",
+							"value": "{{batchId}}",
+							"type": "string"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Batch By BatchName",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Validate Status Code\"]\r",
+							"=responseCode.code==200;"
+						],
+						"type": "text/javascript",
+						"id": "33be012e-a6e4-4f41-8b22-e54df1cc5db1"
+					}
+				}
+			],
+			"_postman_id": "75845456-ccf9-4603-9e3f-3b3b14831d12",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/batches/:(BatchName)",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"batches",
+						":(BatchName)"
+					],
+					"variable": [
+						{
+							"id": "9b53befd-5c55-4c55-8846-a216ced4fa87",
+							"key": "(BatchName)",
+							"value": "{{batchName}}",
+							"type": "string"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Program by Program ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Validate Status Code\"]",
+							"=responseCode.code==200;"
+						],
+						"type": "text/javascript",
+						"id": "fa6f4177-c142-4e0f-958d-180b66071f07"
+					}
+				}
+			],
+			"_postman_id": "35587fd1-4e6c-4789-b9bc-508e5e8e4e50",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/deletebyprogid/:(ProgramID)",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"deletebyprogid",
+						":(ProgramID)"
+					],
+					"variable": [
+						{
+							"id": "ab130cee-a140-4601-9167-2ba80b66e5e9",
+							"key": "(ProgramID)",
+							"value": "{{programId}}",
+							"type": "string"
+						}
+					]
+				},
+				"description": "The user can delete a program based on program ID and Program Name.\n\n| HTTP  <br>VERB | Route | PURPOSE |\n| --- | --- | --- |\n| Delete | {{baseurl}}/deletebyprogid/{programId} | To Delete by Id |"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Program by Program Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Validate Status Code\"]",
+							"=responseCode.code==200;"
+						],
+						"type": "text/javascript",
+						"id": "2774d785-1870-41b6-96f6-18a4835b1dd8"
+					}
+				}
+			],
+			"_postman_id": "9254f92e-d7c3-4e21-9c62-24a22adddc35",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/deletebyprogname/:(ProgramName)",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"deletebyprogname",
+						":(ProgramName)"
+					],
+					"variable": [
+						{
+							"id": "8cf2d0db-881c-470a-9fc2-ee92dc022052",
+							"key": "(ProgramName)",
+							"value": "{{programName}}",
+							"type": "string"
+						}
+					]
+				},
+				"description": "The user can delete a program based on program ID and Program Name.\n\n| HTTP  <br>VERB | Route | PURPOSE |\n| --- | --- | --- |\n| Delete | {{baseurl}}/deletebyprogname/{programName} | To Delete by Program Name |"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"id": "bec8b944-eb67-409a-aaa2-22ad584fe4f4",
+			"key": "baseurl",
+			"value": "https://lms-backend-service.herokuapp.com/lms",
+			"type": "string"
+		}
+	]
+}
