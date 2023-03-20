@@ -142,14 +142,14 @@
 				{
 					"listen": "test",
 					"script": {
+						"id": "65fe29bf-7240-4826-beeb-ddc20cc342a5",
 						"exec": [
 							"tests[\"Validate Status Code\"]",
 							"=responseCode.code==200;",
 							"var jsonData = pm.response.json();",
 							"pm.globals.set(\"programName\", jsonData.programName);"
 						],
-						"type": "text/javascript",
-						"id": "65fe29bf-7240-4826-beeb-ddc20cc342a5"
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -158,7 +158,7 @@
 				"disableBodyPruning": true
 			},
 			"request": {
-				"method": "PUT",
+				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -741,7 +741,7 @@
 	],
 	"variable": [
 		{
-			"id": "71fd7515-4920-42ed-b248-115abba53607",
+			"id": "52aa0dee-70cd-4a0b-a1f2-156af7c9fdba",
 			"key": "baseurl",
 			"value": "https://lms-backend-service.herokuapp.com/lms"
 		}
