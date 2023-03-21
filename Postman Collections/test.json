@@ -6,19 +6,6 @@
 	},
 	"item": [
 		{
-			"name": "API status",
-			"id": "ac66ef96-5972-49d7-b78a-8f4f520779df",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": "{{baseurl}}/status"
-			},
-			"response": []
-		},
-		{
 			"name": "Get All Programs",
 			"event": [
 				{
@@ -556,59 +543,16 @@
 			"response": []
 		},
 		{
-			"name": "Delete Batch By BatchName",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"tests[\"Validate Status Code\"]\r",
-							"=responseCode.code==200;"
-						],
-						"type": "text/javascript",
-						"id": "33be012e-a6e4-4f41-8b22-e54df1cc5db1"
-					}
-				}
-			],
-			"id": "75845456-ccf9-4603-9e3f-3b3b14831d12",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{baseurl}}/batches/:(BatchName)",
-					"host": [
-						"{{baseurl}}"
-					],
-					"path": [
-						"batches",
-						":(BatchName)"
-					],
-					"variable": [
-						{
-							"id": "9b53befd-5c55-4c55-8846-a216ced4fa87",
-							"key": "(BatchName)",
-							"value": "{{batchName}}"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Delete Program by Program ID",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
+						"id": "fa6f4177-c142-4e0f-958d-180b66071f07",
 						"exec": [
-							"tests[\"Validate Status Code\"]",
-							"=responseCode.code==200;"
+							""
 						],
-						"type": "text/javascript",
-						"id": "fa6f4177-c142-4e0f-958d-180b66071f07"
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -639,54 +583,11 @@
 				"description": "The user can delete a program based on program ID and Program Name.\n\n| HTTP  <br>VERB | Route | PURPOSE |\n| --- | --- | --- |\n| Delete | {{baseurl}}/deletebyprogid/{programId} | To Delete by Id |"
 			},
 			"response": []
-		},
-		{
-			"name": "Delete Program by Program Name",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"tests[\"Validate Status Code\"]",
-							"=responseCode.code==200;"
-						],
-						"type": "text/javascript",
-						"id": "2774d785-1870-41b6-96f6-18a4835b1dd8"
-					}
-				}
-			],
-			"id": "9254f92e-d7c3-4e21-9c62-24a22adddc35",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{baseurl}}/deletebyprogname/:(ProgramName)",
-					"host": [
-						"{{baseurl}}"
-					],
-					"path": [
-						"deletebyprogname",
-						":(ProgramName)"
-					],
-					"variable": [
-						{
-							"id": "8cf2d0db-881c-470a-9fc2-ee92dc022052",
-							"key": "(ProgramName)",
-							"value": "{{programName}}"
-						}
-					]
-				},
-				"description": "The user can delete a program based on program ID and Program Name.\n\n| HTTP  <br>VERB | Route | PURPOSE |\n| --- | --- | --- |\n| Delete | {{baseurl}}/deletebyprogname/{programName} | To Delete by Program Name |"
-			},
-			"response": []
 		}
 	],
 	"variable": [
 		{
-			"id": "915db053-46b7-4fd4-9fd5-29763cf7aedc",
+			"id": "a4fd862c-f8a8-4584-b3a8-8a042db16fcf",
 			"key": "baseurl",
 			"value": "https://lms-backend-service.herokuapp.com/lms"
 		}
