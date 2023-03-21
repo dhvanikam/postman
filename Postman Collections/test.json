@@ -550,7 +550,8 @@
 					"script": {
 						"id": "fa6f4177-c142-4e0f-958d-180b66071f07",
 						"exec": [
-							""
+							"tests[\"Validate Status Code\"]",
+							"=responseCode.code==200;"
 						],
 						"type": "text/javascript"
 					}
@@ -587,7 +588,7 @@
 	],
 	"variable": [
 		{
-			"id": "a4fd862c-f8a8-4584-b3a8-8a042db16fcf",
+			"id": "b72bdef3-46f7-4ee9-8b77-dc5d14a96433",
 			"key": "baseurl",
 			"value": "https://lms-backend-service.herokuapp.com/lms"
 		}
