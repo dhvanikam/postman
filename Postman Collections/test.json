@@ -158,7 +158,7 @@
 				"disableBodyPruning": true
 			},
 			"request": {
-				"method": "GET",
+				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -686,7 +686,7 @@
 	],
 	"variable": [
 		{
-			"id": "bb7e6b32-00f7-4773-974d-45aa9d1f210a",
+			"id": "915db053-46b7-4fd4-9fd5-29763cf7aedc",
 			"key": "baseurl",
 			"value": "https://lms-backend-service.herokuapp.com/lms"
 		}
