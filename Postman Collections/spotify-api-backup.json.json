@@ -734,6 +734,19 @@
 										"url": "https://api.spotify.com/v1/browse/new-releases"
 									},
 									"response": []
+								},
+								{
+									"name": "USC01_Get New Releases_400",
+									"id": "994c5ce2-adee-4d38-a5f7-d95a4b13a8c9",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "https://api.spotify.com/v1/browse/new-releasess"
+									},
+									"response": []
 								}
 							],
 							"id": "8757d677-9d49-481c-acc9-a22d540ce79c"
