@@ -1,0 +1,863 @@
+{
+	"info": {
+		"_postman_id": "9a13eb5b-1e9e-4004-ac2d-7d98c0506090",
+		"name": "Spotify",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Player_collection",
+			"item": [
+				{
+					"name": "New Request",
+					"id": "edcf3860-a5c1-4a80-8807-715f0de9005e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://api.spotify.com/v1/audiobooks/7iHfbu1YPACw6oZPAFJtqe"
+					},
+					"response": []
+				},
+				{
+					"name": "test",
+					"id": "314bcd2b-8f1a-4ed4-9b3f-f1d1ca0bd53d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": ""
+					},
+					"response": []
+				}
+			],
+			"id": "179b4d96-397b-478c-b593-624dd0f76fbd"
+		},
+		{
+			"name": "Albums_collection",
+			"item": [
+				{
+					"name": "API_Functionality",
+					"item": [
+						{
+							"name": "Get_Allums",
+							"item": [
+								{
+									"name": "UC01_GetAlbums_200",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a98c274e-8259-425f-bc66-27856339c39a",
+												"exec": [
+													"var jsondata = pm.response.json();",
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Content-Type is present\", function () {",
+													"    pm.response.to.have.header(\"Content-Type\");",
+													"});",
+													"",
+													"var albums = pm.response.json().albums;",
+													"pm.test(\"test response body Total album count\", function(){",
+													"    pm.expect(albums.length).to.eql(3);",
+													"});",
+													"",
+													"pm.test(\"test response body album label is present\", function(){",
+													"    const label1 = jsondata.albums.find(m=>m.label==\"Walt Disney Records\");",
+													"    console.log(label1);",
+													"});",
+													"",
+													"pm.test(\"test response body total tracks fo all albums\", function(){",
+													"    let sum = 0;",
+													"    for(let i=0; i<jsondata.albums.length;i++){",
+													"        if(jsondata.albums[i]!=null){",
+													"        sum = sum + parseInt(jsondata.albums[i].total_tracks);}  ",
+													"    }",
+													"    console.log(sum);",
+													"});",
+													"",
+													"",
+													"pm.test(\"Albums array is present and contains at least one element\", function () {",
+													"    const responseData = pm.response.json();",
+													"    ",
+													"    pm.expect(responseData).to.be.an('object');",
+													"    pm.expect(responseData.albums).to.exist.and.to.be.an('array').that.is.not.empty;",
+													"});",
+													"",
+													"",
+													"pm.test(\"Album is a non-empty\", function () {",
+													"    const responseData = pm.response.json();",
+													"    ",
+													"    pm.expect(responseData).to.be.an('object');",
+													"    pm.expect(responseData.albums).to.be.an('array');",
+													"    responseData.albums.forEach(function(album) {",
+													"        console.log(album.length);",
+													"        pm.expect(album.length).to.be.greaterThan(0);",
+													"    });",
+													"});",
+													"",
+													"const actualTracks = [];",
+													"",
+													"pm.test(\"Validate tracks name in album\", function(){",
+													"    jsondata.album[0].tracks.items.map(m=>actualTracks.push(m.tracks.items));",
+													"    console.log(jsondata.album[0]);",
+													"});",
+													"",
+													"",
+													"var albums_artist = pm.response.json().albums[0];",
+													"pm.test(\"test response body Total total_tracks count\", function(){",
+													"    pm.expect(albums_artist.total_tracks).to.eql(15);",
+													"})",
+													"",
+													"pm.test(\"Response time is less than 200ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "662e8ed3-8011-4266-922f-9e7d9077754c",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://api.spotify.com/v1/albums?ids=382ObEPsp2rxGrnsizN5TX%2C1A2GTWGtFfWp7KSQTwWOyo%2C2noRn2Aes5aoNVsU6iWThc'",
+											"protocol": "https",
+											"host": [
+												"api",
+												"spotify",
+												"com"
+											],
+											"path": [
+												"v1",
+												"albums"
+											],
+											"query": [
+												{
+													"key": "ids",
+													"value": "382ObEPsp2rxGrnsizN5TX%2C1A2GTWGtFfWp7KSQTwWOyo%2C2noRn2Aes5aoNVsU6iWThc'"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "UC02_GetAlbums_NotExists",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "baf5a872-ceac-4495-b48f-9b105c52eb7c",
+												"exec": [
+													"var jsondata = pm.response.json();",
+													"",
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"",
+													"pm.test(\"Alubums null\", function () {",
+													"    pm.expect(jsondata.albums[0]).to.equal(null);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "537f6cbc-2d91-451f-8c94-77a6b2d7f4df",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://api.spotify.com/v1/albums?ids=invalid",
+											"protocol": "https",
+											"host": [
+												"api",
+												"spotify",
+												"com"
+											],
+											"path": [
+												"v1",
+												"albums"
+											],
+											"query": [
+												{
+													"key": "ids",
+													"value": "invalid"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "UC03_GetAlbums_404_Invalidurl",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "38b83dee-0ef1-4cef-80a6-b6bb802d2c47",
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "4b4a9423-9f18-4810-aae3-421d4ac5bdae",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "https://api.spotify.com/v1/albumabcdd"
+									},
+									"response": []
+								},
+								{
+									"name": "UC04_GetAlbums_401_InvalidToken",
+									"id": "72894a55-5682-4ddf-a7a4-f1f36402baad",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://api.spotify.com/v1/albums?ids=382ObEPsp2rxGrnsizN5TX%2C1A2GTWGtFfWp7KSQTwWOyo%2C2noRn2Aes5aoNVsU6iWThc'",
+											"protocol": "https",
+											"host": [
+												"api",
+												"spotify",
+												"com"
+											],
+											"path": [
+												"v1",
+												"albums"
+											],
+											"query": [
+												{
+													"key": "ids",
+													"value": "382ObEPsp2rxGrnsizN5TX%2C1A2GTWGtFfWp7KSQTwWOyo%2C2noRn2Aes5aoNVsU6iWThc'"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "UC05_GetAlbums_403",
+									"id": "5960bd27-936e-4ff8-9a33-9cc63facd050",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "oauth2",
+											"oauth2": {
+												"scope": "user-library-modify",
+												"authUrl": "https://accounts.spotify.com/authorize",
+												"tokenName": "SpotifyRefresh",
+												"useBrowser": true,
+												"clientSecret": "12c13d7999954c9a9cb601a85cb6c0cf",
+												"clientId": "460169bede284fe39de9b29651631b4e",
+												"accessTokenUrl": "https://accounts.spotify.com/api/token",
+												"addTokenTo": "header"
+											}
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://api.spotify.com/v1/albums?ids=382ObEPsp2rxGrnsizN5TX%2C1A2GTWGtFfWp7KSQTwWOyo%2C2noRn2Aes5aoNVsU6iWThc'",
+											"protocol": "https",
+											"host": [
+												"api",
+												"spotify",
+												"com"
+											],
+											"path": [
+												"v1",
+												"albums"
+											],
+											"query": [
+												{
+													"key": "ids",
+													"value": "382ObEPsp2rxGrnsizN5TX%2C1A2GTWGtFfWp7KSQTwWOyo%2C2noRn2Aes5aoNVsU6iWThc'"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"id": "4591887e-ae91-49dc-ae40-a3f7713646c0"
+						},
+						{
+							"name": "Get Several Albums",
+							"item": [
+								{
+									"name": "USC01_Get Several Albums_200",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "bc391d5c-bbc4-4afc-a5e4-4c51045c83db",
+												"exec": [
+													"",
+													"pm.test(\"Response status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Albums array is present and contains at least one element\", function () {",
+													"    const responseData = pm.response.json();",
+													"    ",
+													"    pm.expect(responseData).to.be.an('object');",
+													"    pm.expect(responseData.albums).to.exist.and.to.be.an('array').that.is.not.empty;",
+													"});",
+													"",
+													"pm.test(\"Name of the album is a non-empty string\", function () {",
+													"    const responseData = pm.response.json();",
+													"    ",
+													"    pm.expect(responseData).to.be.an('object');",
+													"    pm.expect(responseData.albums).to.be.an('array');",
+													"    responseData.albums.forEach(function(album) {",
+													"        pm.expect(album.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Name should not be empty\");",
+													"    });",
+													"});",
+													"",
+													"pm.test(\"Release date is in a valid date format\", function () {",
+													"    const responseData = pm.response.json();",
+													"    ",
+													"    pm.expect(responseData).to.be.an('object');",
+													"    pm.expect(responseData.albums).to.be.an('array');",
+													"    responseData.albums.forEach(function(album) {",
+													"        pm.expect(album.release_date).to.match(/^\\d{4}-\\d{2}-\\d{2}$/);",
+													"    });",
+													"});",
+													"",
+													"// Verify the length of the albums array",
+													"pm.test(\"The albums array length must be greater than zero\", function () {",
+													"    const responseData = pm.response.json();",
+													"    const albums = responseData.albums;",
+													"   ",
+													"    pm.expect(albums.length).to.be.greaterThan(0, \"Albums array should not be empty\");",
+													"",
+													"    albums.forEach((album)=>{",
+													"      pm.expect(album.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Name should not be empty\");",
+													"      pm.expect(album.release_date).to.match(/^\\d{4}-\\d{2}-\\d{2}$/);",
+													"    });",
+													"});",
+													"",
+													"",
+													"pm.test(\"Response time is less than 500ms\", function () {",
+													"  pm.expect(pm.response.responseTime).to.be.below(500);",
+													"});",
+													"",
+													"// Test for the response content type",
+													"pm.test(\"Response has a valid content type\", function () {",
+													"    pm.response.to.have.header('Content-Type', 'application/json; charset=utf-8');",
+													"});",
+													"",
+													"pm.test(\"Schema is valid\", function () {",
+													"  var schema = pm.collectionVariables.get(\"GetSeveralAlbumsSchema\");",
+													"",
+													"  var response = pm.response.json();",
+													"  pm.expect(tv4.validate(response, schema)).to.be.true;",
+													"});",
+													"",
+													"// Retrieve the saved \"release_date\" value from the variable",
+													"pm.test(\"Validate response against saved 'release_date' value\", function() {",
+													"    var savedReleaseDate = pm.globals.get(\"release_date\");",
+													"    // Alternatively, you can use pm.environment.get(\"release_date\") if it was stored on an environment",
+													"    ",
+													"    var responseBody = pm.response.json();",
+													"    var albums = responseBody.albums;",
+													"    albums.forEach(function(album) {",
+													"        pm.expect(album.release_date).to.equal(savedReleaseDate);",
+													"    });",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "8c14e4a2-c1aa-4ca9-8d70-2d422b77d227",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {
+												"token": "{{access_token}}"
+											}
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://api.spotify.com/v1/albums?ids=382ObEPsp2rxGrnsizN5TX%2C1A2GTWGtFfWp7KSQTwWOyo%2C2noRn2Aes5aoNVsU6iWThc",
+											"protocol": "https",
+											"host": [
+												"api",
+												"spotify",
+												"com"
+											],
+											"path": [
+												"v1",
+												"albums"
+											],
+											"query": [
+												{
+													"key": "ids",
+													"value": "382ObEPsp2rxGrnsizN5TX%2C1A2GTWGtFfWp7KSQTwWOyo%2C2noRn2Aes5aoNVsU6iWThc"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "USC02_Get Several Albums_NotExist",
+									"id": "6534e461-7628-4ea5-91ca-74dc9c872e09",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://api.spotify.com/v1/albums?ids=382ObEPs%2C1A2GTWGtFfWp7K%2C2noRn2Aes",
+											"protocol": "https",
+											"host": [
+												"api",
+												"spotify",
+												"com"
+											],
+											"path": [
+												"v1",
+												"albums"
+											],
+											"query": [
+												{
+													"key": "ids",
+													"value": "382ObEPs%2C1A2GTWGtFfWp7K%2C2noRn2Aes"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "USC03_Get Several Albums_404",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "833db842-c193-4a70-a48e-d2f7d3011053",
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "9ec3bdb8-fb9c-4cd9-bbdc-86648ed5de38",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "https://api.spotify.com/v1/albuminvalid"
+									},
+									"response": []
+								},
+								{
+									"name": "USC04_Get Several Albums_401",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "d09e258c-7a76-499b-9bd4-04a80cdbc5af",
+												"exec": [
+													"pm.test(\"Status code is 401\", function () {",
+													"    pm.response.to.have.status(401);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "9b3f5b84-98fb-4277-940c-7b740e87e0e0",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://api.spotify.com/v1/albums?ids=382ObEPsp2rxGrnsizN5TX%2C1A2GTWGtFfWp7KSQTwWOyo%2C2noRn2Aes5aoNVsU6iWThc",
+											"protocol": "https",
+											"host": [
+												"api",
+												"spotify",
+												"com"
+											],
+											"path": [
+												"v1",
+												"albums"
+											],
+											"query": [
+												{
+													"key": "ids",
+													"value": "382ObEPsp2rxGrnsizN5TX%2C1A2GTWGtFfWp7KSQTwWOyo%2C2noRn2Aes5aoNVsU6iWThc"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"id": "7152cf9a-0d30-42a2-bfd5-8df05b98e408"
+						},
+						{
+							"name": "Get Album Tracks",
+							"item": [
+								{
+									"name": "USC01_Get Album Tracks_200",
+									"id": "b73e596e-caf4-4bd3-b903-ab159bdf52a5",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {
+												"token": "{{access_token}}"
+											}
+										},
+										"method": "GET",
+										"header": [],
+										"url": "https://api.spotify.com/v1/albums/4aawyAB9vmqN3uQ7FjRGTy/tracks"
+									},
+									"response": []
+								}
+							],
+							"id": "5d2dc29c-1946-4b5d-a170-224352fabc6b"
+						},
+						{
+							"name": "Get User's Saved Albums",
+							"item": [
+								{
+									"name": "USC01_Get User's Saved Albums_200",
+									"id": "d8b34075-8463-4320-9bb1-a8f0fe27c61d",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "https://api.spotify.com/v1/me/albums"
+									},
+									"response": []
+								}
+							],
+							"id": "a1f6fc01-e17a-455c-ae1c-e76a37bc57ba"
+						},
+						{
+							"name": "Save Albums for Current User",
+							"item": [
+								{
+									"name": "UC01_Save Albums for Current User_200",
+									"id": "7b64757b-cb1c-4814-a0e3-f2e4b8ba2e27",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"ids\": [\n        \"string\"\n    ]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://api.spotify.com/v1/me/albums?ids=382ObEPsp2rxGrnsizN5TX%2C1A2GTWGtFfWp7KSQTwWOyo%2C2noRn2Aes5aoNVsU6iWThc",
+											"protocol": "https",
+											"host": [
+												"api",
+												"spotify",
+												"com"
+											],
+											"path": [
+												"v1",
+												"me",
+												"albums"
+											],
+											"query": [
+												{
+													"key": "ids",
+													"value": "382ObEPsp2rxGrnsizN5TX%2C1A2GTWGtFfWp7KSQTwWOyo%2C2noRn2Aes5aoNVsU6iWThc"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"id": "ea37131b-8a4c-4364-ac9f-bcc6bb41bae4"
+						},
+						{
+							"name": "Remove Users' Saved Albums",
+							"item": [
+								{
+									"name": "USC01_Remove Users' Saved Albums_200",
+									"id": "3be45d2a-c82f-4ead-99f9-07b7b1fa2923",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://api.spotify.com/v1/me/albums?ids=382ObEPsp2rxGrnsizN5TX%2C1A2GTWGtFfWp7KSQTwWOyo%2C2noRn2Aes5aoNVsU6iWThc",
+											"protocol": "https",
+											"host": [
+												"api",
+												"spotify",
+												"com"
+											],
+											"path": [
+												"v1",
+												"me",
+												"albums"
+											],
+											"query": [
+												{
+													"key": "ids",
+													"value": "382ObEPsp2rxGrnsizN5TX%2C1A2GTWGtFfWp7KSQTwWOyo%2C2noRn2Aes5aoNVsU6iWThc"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"id": "abbd513c-9636-4cf8-9afc-c79bf74aa2aa"
+						},
+						{
+							"name": "Check User's Saved Albums",
+							"item": [
+								{
+									"name": "USC01_Check User's Saved Albums_200",
+									"id": "35e04a4f-cb87-4721-b0b9-cf516bbed8d5",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {
+												"token": "{{access_token}}"
+											}
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://api.spotify.com/v1/me/albums/contains?ids=382ObEPsp2rxGrnsizN5TX%2C1A2GTWGtFfWp7KSQTwWOyo%2C2noRn2Aes5aoNVsU6iWThc",
+											"protocol": "https",
+											"host": [
+												"api",
+												"spotify",
+												"com"
+											],
+											"path": [
+												"v1",
+												"me",
+												"albums",
+												"contains"
+											],
+											"query": [
+												{
+													"key": "ids",
+													"value": "382ObEPsp2rxGrnsizN5TX%2C1A2GTWGtFfWp7KSQTwWOyo%2C2noRn2Aes5aoNVsU6iWThc"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"id": "ea4a4bb1-8f8c-485f-a93c-11e74f7f365d"
+						},
+						{
+							"name": "Get New Releases",
+							"item": [
+								{
+									"name": "USC01_Get New Releases_200",
+									"id": "f90c8905-bfc4-4ac9-be04-264cad3995f2",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "https://api.spotify.com/v1/browse/new-releases"
+									},
+									"response": []
+								}
+							],
+							"id": "8757d677-9d49-481c-acc9-a22d540ce79c"
+						}
+					],
+					"id": "77fd5559-3086-492c-87aa-8c96b368e689"
+				},
+				{
+					"name": "End-to-End",
+					"item": [
+						{
+							"name": "test",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5ffb05be-d7e1-42bf-ab50-e33aa440229c",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "c488ecea-388b-4f87-8e9e-e3a434fb05af",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.spotify.com/v1/albums?ids=382ObEPsp2rxGrnsizN5TX%2C1A2GTWGtFfWp7KSQTwWOyo%2C2noRn2Aes5aoNVsU6iWThc'",
+									"protocol": "https",
+									"host": [
+										"api",
+										"spotify",
+										"com"
+									],
+									"path": [
+										"v1",
+										"albums"
+									],
+									"query": [
+										{
+											"key": "ids",
+											"value": "382ObEPsp2rxGrnsizN5TX%2C1A2GTWGtFfWp7KSQTwWOyo%2C2noRn2Aes5aoNVsU6iWThc'"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"id": "47e2766b-fb25-4bb0-abac-777828b239f5"
+				}
+			],
+			"id": "9ed9e4e3-c622-4760-b859-0680869d8006"
+		},
+		{
+			"name": "Audio_Book",
+			"item": [
+				{
+					"name": "GetAudioBook",
+					"id": "f2e6907d-e6d3-4e95-b4a8-21bc6b6054ca",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://api.spotify.com/v1/audiobooks/7iHfbu1YPACw6oZPAFJtqe"
+					},
+					"response": []
+				},
+				{
+					"name": "GetSeveralAudioBooks",
+					"id": "3e437cad-a480-47d0-81d1-078a772a4ba8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			],
+			"id": "1596f65c-9cc1-4c6d-94e1-0e73736626b8"
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "{{access_token}}"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "cf303877-ca50-41b2-a9bf-14aa0dbfc92e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "01bc08bd-7084-4ff4-999d-08b02a2255d0",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "GetSeveralAlbumsSchema",
+			"value": "{\n    type: \"object\",\n    properties: {\n      albums: {\n        type: \"array\",\n        items: {\n          type: \"object\",\n          properties: {\n            album_type: { type: \"string\" },\n            artists: {\n              type: \"array\",\n              items: {\n                type: \"object\",\n                properties: {\n                  external_urls: { type: \"object\" },\n                  href: { type: \"string\" },\n                  id: { type: \"string\" },\n                  name: { type: \"string\" },\n                  type: { type: \"string\" },\n                  uri: { type: \"string\" }\n                }\n              }\n            },\n            available_markets: { type: \"array\" },\n            copyrights: {\n              type: \"array\",\n              items: {\n                type: \"object\",\n                properties: {\n                  text: { type: \"string\" },\n                  type: { type: \"string\" }\n                }\n              }\n            },\n            external_ids: { type: \"object\" },\n            external_urls: { type: \"object\" },\n            genres: { type: \"array\" },\n            href: { type: \"string\" },\n            id: { type: \"string\" },\n            images: {\n              type: \"array\",\n              items: {\n                type: \"object\",\n                properties: {\n                  height: { type: \"number\" },\n                  url: { type: \"string\" },\n                  width: { type: \"number\" }\n                }\n              }\n            },\n            label: { type: \"string\" },\n            name: { type: \"string\" },\n            popularity: { type: \"number\" },\n            release_date: { type: \"string\" },\n            release_date_precision: { type: \"string\" },\n            total_tracks: { type: \"number\" },\n            tracks: {\n              type: \"object\",\n              properties: {\n                href: { type: \"string\" },\n                items: {\n                  type: \"array\",\n                  items: {\n                    type: \"object\",\n                    properties: {\n                      artists: { type: \"array\" },\n                      available_markets: { type: \"array\" },\n                      disc_number: { type: \"number\" },\n                      duration_ms: { type: \"number\" },\n                      explicit: { type: \"boolean\" },\n                      external_urls: { type: \"object\" },\n                      href: { type: \"string\" },\n                      id: { type: \"string\" },\n                      is_local: { type: \"boolean\" },\n                      name: { type: \"string\" },\n                      preview_url: { type: [\"string\", \"null\"] },\n                      track_number: { type: \"number\" },\n                      type: { type: \"string\" },\n                      uri: { type: \"string\" }\n                    }\n                  }\n                },\n                limit: { type: \"number\" },\n                next: { type: [\"string\", \"null\"] },\n                offset: { type: \"number\" },\n                previous: { type: [\"string\", \"null\"] },\n                total: { type: \"number\" }\n              }\n            },\n            type: { type: \"string\" },\n            uri: { type: \"string\" }\n          }\n        }\n      }\n    },\n    required: [\"albums\"],\n  }",
+			"type": "string"
+		}
+	]
+}
