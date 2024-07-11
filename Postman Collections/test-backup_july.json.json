@@ -777,19 +777,6 @@
 								}
 							],
 							"id": "8757d677-9d49-481c-acc9-a22d540ce79c"
-						},
-						{
-							"name": "testRequest",
-							"id": "e3a7d1eb-95cf-4b50-8661-31e7a35a8efc",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": "url"
-							},
-							"response": []
 						}
 					],
 					"id": "77fd5559-3086-492c-87aa-8c96b368e689"
